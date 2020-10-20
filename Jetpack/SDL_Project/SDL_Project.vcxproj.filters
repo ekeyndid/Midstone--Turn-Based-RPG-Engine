@@ -92,5 +92,11 @@
     <ClInclude Include="playerObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CharacterBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseAttack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

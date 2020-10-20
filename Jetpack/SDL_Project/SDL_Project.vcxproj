@@ -25,7 +25,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="BaseAttack.h" />
     <ClInclude Include="Body.h" />
+    <ClInclude Include="CharacterBase.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Matrix.h" />
