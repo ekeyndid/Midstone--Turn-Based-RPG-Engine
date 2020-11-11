@@ -23,7 +23,7 @@ void Body::BodyOnCreate(Vec3 pos_, Vec3 vel_, Vec3 accel_,float mass_,std::strin
 	vel.z = vel_.z;
 	accel.x = accel_.x;
 	accel.y = accel_.y;
-	accel.z = accel_.z;asically
+	accel.z = accel_.z;
 	mass = mass_;
 	Name = name_;
 	Radius = Rad_;
