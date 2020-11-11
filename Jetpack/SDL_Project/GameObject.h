@@ -10,9 +10,11 @@ public:
 	virtual void Render() const = 0;
 	virtual void HandleEvents(const SDL_Event &SDL_Event) = 0;
 	std::string Tag;
+	SDL_Surface* Image;
 
-
-	
+	//We learned about this last sem guys, cmon. But to recap.
+	//This is a baseclass for anything really, itll come with the usual functions,
+	//and a nifty tag to Identify it.
 
 
 

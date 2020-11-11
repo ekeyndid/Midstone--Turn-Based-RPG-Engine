@@ -4,18 +4,19 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
-class BaseAttack
+class BaseAttack //base class for attacks any enemy or player can perform.
 {
 public:
-	float Damage;
-	float Accuracy;
-	std::string tag1;
-	std::string tag2;
-	std::string tag3;
-	//enum Effects; // ask about this one
-	std::string Name;
-	bool TargetSelf;
-	bool TargetTeam;
+	float Damage; //The damage of the attack
+	float Accuracy; // Accuracy of attack
+	std::string tag1; //the tags of the attacks, such as Bleed, or Bypass defense.
+	std::string tag2; //Tags will be displayed somehow (maybe) in the future
+	std::string tag3; 
+	//enum Effects; // The game will check this effects enum for every effect of the attack, again, such as bleed
+	std::string Name; // name
+	bool TargetSelf; // Will it target self? or no?
+	bool TargetTeam; // Will it target team? or no?
+	
 
 
 
