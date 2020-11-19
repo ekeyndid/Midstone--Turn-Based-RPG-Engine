@@ -150,7 +150,7 @@ namespace  MATH {
 				m[3], m[7], m[11], m[15]);
 		}
 		
-		/// These allow me convert from type Matrix to const float * without issues
+		/// These allow me to convert from type Matrix to const float * without issues
 		inline operator float* () { return static_cast<float*>( &m[0] ); }
 		inline operator const float* () const { return static_cast<const float*>( &m[0]); }		
 	};
