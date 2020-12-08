@@ -1,31 +1,31 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "CharacterBase.h"
-class Player : CharacterBase
+#include <cstdlib>
+#include <ctime>
+class Player : public CharacterBase
 {
+public:
 	bool OnCreate();
-	bool OnCreate(float hpv, float mpv, Vec3 Posv, const char* Imagee);
+	bool OnCreate(const float hpv, const float mpv, const float Speedt, const float Defencev, const Vec3 Posv, const char* Imagee,std::string namev,int loadout);
 	void OnDestory();
 	void Update(const float deltaTime);
-	void Render() const;
+	void Render(SDL_Surface* currentsurface, Matrix4 projectionTake) const;
 	void HandleEvents(const SDL_Event& SDL_Event);
+	virtual bool CurrentAttack();
+	BaseAttack* Attack1;
 	
-	std::string Tag = "Player";
+	
+	
+	
+	
+	
 
-	void TakeDmg(float value);
-	void DealDmg(float value);
-	void SetHP(float value);
-	void SetMP(float value);
-	bool CurrentAttack(enum Attack);
 	
-	enum Attacks;
 	
-	float MaxHP; 
-	float CurrHP;
-	float MaxMP; 
-	float CurrMP;
-	Vec3 Position;
-	SDL_Surface* Image;
+	
+	
+	
 };
 
 #endif // PLAYER_H

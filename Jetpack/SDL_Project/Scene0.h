@@ -1,25 +1,30 @@
 #ifndef SCENE0_H
 #define SCENE0_H
-#include "Body.h"
-#include "Ball.h"
 #include "MMath.h"
 #include "Scene.h"
 #include <SDL.h>
-#include "playerObject.h"
+#include "CharacterBase.h"
+#include "Player.h"
+#include "Enemy.h"
+#include <vector>
+#include <algorithm>
+#include <stdlib.h>
+#include <Windows.h>
+#include <limits>
+#include "BaseAttack.h"
 using namespace MATH;
 class Scene0 : public Scene {
 private:
 	SDL_Window *window;
-	const SDL_Rect* ye;
-	SDL_Surface* PlayerImage;
 	Matrix4 projection;
-	float elapsedTime;
-	float Direction;
-	playerObject Player;
-	
-	
-
-	
+	Player* MainPlayer;
+	Enemy* Enemy1;
+	bool PostRender;
+	bool RunNextCycle;
+	int TurnNumber;
+	std::vector<CharacterBase*> Characters;
+	std::vector<Enemy*> Enemies;
+	std::vector<Player*> Allies;
 public:
 	Scene0(SDL_Window* sdlWindow);
 	~Scene0();
@@ -28,8 +33,10 @@ public:
 	void Update(const float time);
 	void Render();
 	void HandleEvents(const SDL_Event& event);
-	
-	
+	bool PrintTurn(CharacterBase* PlayerPassIn);
+	bool PrintAction(std::string Attacker, std::string Action, std::string Defender, int damage,bool miss);
+	bool CommitAction(CharacterBase* PlayerPassIn, int Action);
+	bool HandleDamage(CharacterBase* Attacker, CharacterBase* Defender, BaseAttack* AttackBeingMade);
 };
 
 #endif

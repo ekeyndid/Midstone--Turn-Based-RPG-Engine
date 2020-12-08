@@ -2,12 +2,14 @@
 #define GAMEOBJECT_H
 #include <SDL.h>
 #include <stdlib.h>
+#include "MMath.h"
+using namespace MATH;
 class GameObject {
 public:
 	virtual bool OnCreate() = 0;
 	virtual void OnDestory() = 0;
 	virtual void Update(const float deltaTime) = 0;
-	virtual void Render() const = 0;
+	virtual void Render(SDL_Surface* currentsurface, Matrix4 projectionTake) const = 0;
 	virtual void HandleEvents(const SDL_Event &SDL_Event) = 0;
 	std::string Tag;
 	SDL_Surface* Image;

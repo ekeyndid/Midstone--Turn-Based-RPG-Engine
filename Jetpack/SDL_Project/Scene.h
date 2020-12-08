@@ -1,6 +1,6 @@
 #ifndef SCENE_H
 #define SCENE_H
-
+union SDL_Event;
 class Scene {
 public:
 	virtual bool OnCreate() = 0;
@@ -8,9 +8,7 @@ public:
 	virtual void Update(const float time) = 0;
 	virtual void Render() = 0;
 	virtual void HandleEvents(const SDL_Event& event) = 0;
-	int Direction;
-	bool pressing;
-	bool go;
+
 	
 };
 

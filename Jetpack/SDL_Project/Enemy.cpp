@@ -1,9 +1,9 @@
-#include "Player.h"
+#include "Enemy.h"
 
 
 
-bool Player::OnCreate(const float hpv, const float mpv, const float Speedt, const float Defencev, const Vec3 Posv, const char* Imagee, std::string namev, int loadout) { // Create a player with the follows params
-	Tag = "Player";
+bool Enemy::OnCreate(const float hpv, const float mpv, const float Speedt, const float Defencev, const Vec3 Posv, const char* Imagee, std::string namev, int loadout) { // Create a player with the follows params
+	Tag = "Enemy";
 	Name = namev;
 	MaxHP = hpv; //Hp, set to max
 	CurrHP = MaxHP;
@@ -19,22 +19,15 @@ bool Player::OnCreate(const float hpv, const float mpv, const float Speedt, cons
 		printf("IMG LOAD ERROR: %s\n", IMG_GetError());
 		return false;
 	}
-	switch (loadout) {
-	case 1:
-		
-		Attack1 = new BaseAttack;
-		AttackList.push_back(Attack1);
-		break;
-	}
 	return true;
 	//all done, return true
 }
 
-void Player::Update(const float deltaTime)
+void Enemy::Update(const float deltaTime)
 {
 }
 
-void Player::Render(SDL_Surface* currentsurface, Matrix4 projectionTake) const
+void Enemy::Render(SDL_Surface* currentsurface, Matrix4 projectionTake) const
 {
 	Vec3 screenPos = projectionTake * Position;
 
@@ -44,27 +37,23 @@ void Player::Render(SDL_Surface* currentsurface, Matrix4 projectionTake) const
 	SDL_BlitSurface(Image, nullptr, currentsurface, &dstrect);
 }
 
-void Player::HandleEvents(const SDL_Event& SDL_Event)
+void Enemy::HandleEvents(const SDL_Event& SDL_Event)
 {
 }
 
 
 
-
-
-
-
-bool Player::CurrentAttack() {
+bool Enemy::CurrentAttack() {
 
 	return true;
 }
 
 
 
-bool Player::OnCreate()
+bool Enemy::OnCreate()
 {
-	Tag = "Player";
-	Name = "john";
+	Tag = "Enemy";
+	Name = "doe";
 	MaxHP = CurrHP = 100;
 	MaxMP = CurrMP = 100;
 	Speed = 0;
@@ -78,11 +67,9 @@ bool Player::OnCreate()
 	return true;
 }
 
-void Player::OnDestory() {
-	Image = nullptr;
+void Enemy::OnDestory() {
+	Image = NULL;
 	delete Image;
-	Attack1 = nullptr;
-	delete Attack1;
 }
 
 

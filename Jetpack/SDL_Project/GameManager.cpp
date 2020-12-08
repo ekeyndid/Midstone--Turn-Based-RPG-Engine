@@ -2,8 +2,6 @@
 #include "Window.h"
 #include "Timer.h"
 #include "Scene0.h"
-#include "Scene1.h"
-#include "Scene2.h"
 #include <iostream>
 
 GameManager::GameManager() {
