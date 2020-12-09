@@ -22,7 +22,7 @@ bool Player::OnCreate(const float hpv, const float mpv, const float Speedt, cons
 	switch (loadout) {
 	case 1:
 		
-		Attack1 = new BaseAttack;
+		Attack1 = new BasicAttack;
 		AttackList.push_back(Attack1);
 		break;
 	}
@@ -48,6 +48,11 @@ void Player::HandleEvents(const SDL_Event& SDL_Event)
 {
 }
 
+Player::~Player()
+{
+	OnDestory();
+}
+
 
 
 
@@ -61,7 +66,7 @@ bool Player::CurrentAttack() {
 
 
 
-bool Player::OnCreate()
+Player::Player()
 {
 	Tag = "Player";
 	Name = "john";
@@ -70,12 +75,7 @@ bool Player::OnCreate()
 	Speed = 0;
 	Evasion = 1;
 	Position = Vec3();
-	Image = IMG_Load("Test.png");
-	if (!Image) {
-		printf("IMG LOAD ERROR: %s\n", IMG_GetError());
-		return false;
-	}
-	return true;
+	
 }
 
 void Player::OnDestory() {

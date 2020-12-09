@@ -15,9 +15,15 @@ protected:
 	std::string Name; // name
 	bool TargetSelf; // Will it target self? or no?
 	bool TargetTeam; // Will it target team? or no?
-	
-
-	
+public:
+	inline float getDamage() { return Damage; }
+	inline float getAccuracy() { return Accuracy; }
+	inline std::string getTag1() { return tag1; }
+	inline std::string getTag2() { return tag2; }
+	inline std::string getTag3() { return tag3; }
+	inline std::string getName() { return Name; }
+	inline bool getTargetS() { return TargetSelf; }
+	inline bool getTargetT() { return TargetTeam; }
 
 
 

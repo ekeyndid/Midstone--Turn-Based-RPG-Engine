@@ -19,6 +19,13 @@ bool Enemy::OnCreate(const float hpv, const float mpv, const float Speedt, const
 		printf("IMG LOAD ERROR: %s\n", IMG_GetError());
 		return false;
 	}
+	switch (loadout) {
+	case 1:
+
+		Attack1 = new EnemyBasicAttack;
+		AttackList.push_back(Attack1);
+		break;
+	}
 	return true;
 	//all done, return true
 }
@@ -50,7 +57,12 @@ bool Enemy::CurrentAttack() {
 
 
 
-bool Enemy::OnCreate()
+Enemy::~Enemy()
+{
+	OnDestory();
+}
+
+Enemy::Enemy()
 {
 	Tag = "Enemy";
 	Name = "doe";
@@ -59,12 +71,7 @@ bool Enemy::OnCreate()
 	Speed = 0;
 	Evasion = 1;
 	Position = Vec3();
-	Image = IMG_Load("Test.png");
-	if (!Image) {
-		printf("IMG LOAD ERROR: %s\n", IMG_GetError());
-		return false;
-	}
-	return true;
+	
 }
 
 void Enemy::OnDestory() {

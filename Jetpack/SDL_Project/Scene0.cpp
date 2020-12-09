@@ -27,42 +27,56 @@ bool Scene0::OnCreate() {
 	Characters.push_back(new Player());
 	MainPlayer = dynamic_cast<Player*>(Characters.back());
 	if (!MainPlayer) { return false; }
+	Characters.push_back(new Player());
+	SidePlayer = dynamic_cast<Player*>(Characters.back());
+	if (!SidePlayer) { return false; }
 	Allies.push_back(MainPlayer); //add allies
+	Allies.push_back(SidePlayer);
 
-
+	
 	//declare enemies
 	Characters.push_back(new Enemy());
 	Enemy1 = dynamic_cast<Enemy*>(Characters.back());
 	if (!Enemy1) { return false; }
+	Characters.push_back(new Enemy());
+	Enemy2 = dynamic_cast<Enemy*>(Characters.back());
+	if (!Enemy2) { return false; }
 	Enemies.push_back(Enemy1); //add enemies
+	Enemies.push_back(Enemy2);
 
-
-	if (!MainPlayer->OnCreate(100.0f , 100.0f, 1, 1, Vec3(30,50,0), "good boi.png","Protag",1)) { return false; }
-	if (!Enemy1->OnCreate(100.0f, 100.0f, -2, 1, Vec3(-30, 50, 0), "good boi.png","Goblin",1)) { return false; }
-	printf("Before sorting the list is: \n");
+	if (!MainPlayer->OnCreate(50.0f , 50.0f, 1, 1, Vec3(30,50,0), "good boi.png","Protag",1)) { return false; }
+	if (!SidePlayer->OnCreate(45.0f, 45.0f, 5, 0, Vec3(50, 0, 0), "good boi.png", "Side", 1)) { return false; }
+	if (!Enemy1->OnCreate(40.0f, 40.0f, -2, 1, Vec3(-30, 50, 0), "good boi.png","Goblin",1)) { return false; }
+	if (!Enemy2->OnCreate(60.0f, 60.0f, 5, 3, Vec3(-50, 0, 0), "good boi.png", "Orc", 1)) { return false; }
+	std::cout << "Encountered " << Enemy1->Name << " and " << Enemy2->Name << "!" << std::endl;
+	printf("\n Before sorting the attack list is: \n");
 	MainPlayer->ReturnSpeedRoll();
+	SidePlayer->ReturnSpeedRoll();
 	Enemy1->ReturnSpeedRoll();
+	Enemy2->ReturnSpeedRoll();
 	
 	for (int n = 0; n < Characters.size(); n++) {
 		std::cout << Characters[n]->DiceRoll << "  " << Characters[n]->Name << std::endl;
 	}
-	std::cout << MainPlayer->DiceRoll << std::endl;
-	printf("After sorting the list is: \n");
+	//std::cout << MainPlayer->DiceRoll << std::endl;
+	printf("After sorting the attack list is: \n");
 	std::sort(Characters.begin(), Characters.end(), sortCharacters);
 	for (int n = 0; n < Characters.size(); n++) {
 		std::cout << Characters[n]->DiceRoll << "  " << Characters[n]->Name << std::endl;
 	}
-	
+	Sleep(3000);
 	return true;
 }
 
 void Scene0::OnDestroy() {
-	MainPlayer->OnDestory();
-	Enemy1->OnDestory();
 	delete MainPlayer;
 	MainPlayer = nullptr;
 	delete Enemy1;
 	Enemy1 = nullptr;
+	delete SidePlayer;
+	SidePlayer = nullptr;
+	delete Enemy2;
+	Enemy2 = nullptr;
 	
 
 	for (int n = 0; n < Characters.size(); n++) {
@@ -123,7 +137,8 @@ bool Scene0::PrintTurn(CharacterBase* PlayerPassIn)
 {
 	int result;
 	if (PlayerPassIn->Tag == "Player") {
-		std::cout << PlayerPassIn->Name << " Select an Action, 1 2 3 or 4" << std::endl;
+		std::cout << PlayerPassIn->Name << " Health: "<< PlayerPassIn->CurrHP << std::endl;
+		std::cout << "Select an Action, 1 2 3 or 4" << std::endl;
 		//print turn layout and call to turn handle func
 		std::cout << "1. Attack \t" << "2. Magic \t\ \n" << "3. Defend \t" << "4. Run \n" << std::endl;
 		std::cin >> result;
@@ -140,12 +155,15 @@ bool Scene0::PrintTurn(CharacterBase* PlayerPassIn)
 		std::cin.clear();
 		std::cin.ignore(10000, '\n');
 		std::cin.rdstate();
-		std::cout << result << std::endl;
+		//std::cout << result << std::endl;
 		CommitAction(PlayerPassIn, result);
 	}
 	else if (PlayerPassIn->Tag == "Enemy") {
-		std::cout << PlayerPassIn->Name << " Selects an Action... \n" << std::endl;
-		//do stuff for enemy ahah
+		std::cout << PlayerPassIn->Name << " Health: " << PlayerPassIn->CurrHP << std::endl;
+		std::cout << PlayerPassIn->Name << " Selects an action.. \n" << std::endl;
+		float Action;
+		result = (rand() % 4) + 1;
+		CommitAction(PlayerPassIn, result);
 	}
 		
 		
@@ -211,41 +229,46 @@ bool Scene0::CommitAction(CharacterBase* PlayerPassIn, int Action)
 			}
 			SelectedTarget = SelectedTarget - 1;
 			if (SelectedTarget > Enemies.size()-1 || SelectedTarget < 0) { SelectedTarget = 0; }
-			std::cout << SelectedTarget << std::endl;
+			//std::cout << SelectedTarget << std::endl;
 			HandleDamage(PlayerPassIn, Enemies[SelectedTarget], PlayerPassIn->AttackList[0]);
 		}
 		else if (PlayerPassIn->Tag == "Enemy") {
-
+			int SelectedTarget = (rand() % Allies.size());
+			HandleDamage(PlayerPassIn, Allies[SelectedTarget], PlayerPassIn->AttackList[0]);
 		}
 
 		break;
 	case 2:
 		if (PlayerPassIn->Tag == "Player") {
-
+			std::cout << "No Valid Known Magic! \n" << std::endl;
 		}
 		else if (PlayerPassIn->Tag == "Enemy") {
-
+			std::cout << "No Valid Known Magic! \n" << std::endl;
 		}
 		break;
 	case 3:
 		if (PlayerPassIn->Tag == "Player") {
-
+			std::cout << PlayerPassIn->Name << " Defends themself from attacks! \n" << std::endl;
 		}
 		else if (PlayerPassIn->Tag == "Enemy") {
-
+			std::cout << PlayerPassIn->Name << " Defends themself from attacks! \n" << std::endl;
 		}
 		break;
 	case 4:
 		if (PlayerPassIn->Tag == "Player") {
-
+			std::cout << PlayerPassIn->Name << " Attempts to flee!" << std::endl;
+			Sleep(2000);
+			std::cout << PlayerPassIn->Name << " failed to flee... \n" << std::endl;
 		}
 		else if (PlayerPassIn->Tag == "Enemy") {
-
+			std::cout << PlayerPassIn->Name << " Attempts to flee!" << std::endl;
+			Sleep(2000);
+			std::cout << PlayerPassIn->Name << " failed to flee! \n" << std::endl;
 		}
 		break;
 
 	default:
-		
+		std::cout << PlayerPassIn->Name << " Skipped their turn! \n" << std::endl;
 		break;
 	}
 
@@ -254,19 +277,19 @@ bool Scene0::CommitAction(CharacterBase* PlayerPassIn, int Action)
 
 bool Scene0::HandleDamage(CharacterBase* Attacker, CharacterBase* Defender, BaseAttack* AttackBeingMade)
 {
-	float HitAcc = 90;//AttackBeingMade->Accuracy - Defender->Evasion;
+	float HitAcc = AttackBeingMade->getAccuracy() - Defender->Evasion;
 	float RandomValue = (rand() % 100) + 1;
-	std::cout << "random: " << RandomValue << std::endl;
-	std::cout << "to hit: " << HitAcc << std::endl;
+	//std::cout << "random: " << RandomValue << std::endl;
+	//std::cout << "below " << HitAcc << " to hit" << std::endl;
 	if (RandomValue <= HitAcc) {
-		float damage = 19;//AttackBeingMade->Damage - Defender->Defence;
+		float damage = AttackBeingMade->getDamage() - Defender->Defence;
 		if (damage < 0) { damage = 0; }
 		Defender->TakeDmg(damage);
-		PrintAction(Attacker->Name,"Basic Weapon Attack" , Defender->Name, damage, false);//AttackBeingMade->Name
-		std::cout << Defender->CurrHP;
+		PrintAction(Attacker->Name,AttackBeingMade->getName() , Defender->Name, damage, false);
+		//std::cout << Defender->CurrHP;
 		return true;
 	}
-	else { PrintAction(Attacker->Name, "Basic Weapon Attack", Defender->Name, 69, true); return true; }//AttackBeingMade->Name
+	else { PrintAction(Attacker->Name, AttackBeingMade->getName(), Defender->Name, 69, true); return true; }//AttackBeingMade->Name
 	return false;
 }
 
@@ -291,7 +314,9 @@ void Scene0::Render() {
 	//SDL_BlitSurface(Player.Image, nullptr, screenSurface, &dstrect);
 	//tell player to render and give them projection
 	MainPlayer->Render(screenSurface, projection);
+	SidePlayer->Render(screenSurface, projection);
 	Enemy1->Render(screenSurface, projection);
+	Enemy2->Render(screenSurface, projection);
 	
 	
 	

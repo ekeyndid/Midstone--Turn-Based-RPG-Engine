@@ -18,7 +18,9 @@ private:
 	SDL_Window *window;
 	Matrix4 projection;
 	Player* MainPlayer;
+	Player* SidePlayer;
 	Enemy* Enemy1;
+	Enemy* Enemy2;
 	bool PostRender;
 	bool RunNextCycle;
 	int TurnNumber;

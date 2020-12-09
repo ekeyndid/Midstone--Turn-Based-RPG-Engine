@@ -104,5 +104,8 @@
     <ClInclude Include="BaseAttack.h">
       <Filter>Header Files\AttacksFolder</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyBasicAttack.h">
+      <Filter>Header Files\AttacksFolder</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

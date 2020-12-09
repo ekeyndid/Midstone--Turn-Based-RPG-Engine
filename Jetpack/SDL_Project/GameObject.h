@@ -6,7 +6,6 @@
 using namespace MATH;
 class GameObject {
 public:
-	virtual bool OnCreate() = 0;
 	virtual void OnDestory() = 0;
 	virtual void Update(const float deltaTime) = 0;
 	virtual void Render(SDL_Surface* currentsurface, Matrix4 projectionTake) const = 0;
