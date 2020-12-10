@@ -11,7 +11,7 @@ public:
 		Name = "Sword Slash";
 		TargetSelf = false;
 		TargetTeam = false;
-		Accuracy = 100;
+		Accuracy = 90;
 	}
 	
 };

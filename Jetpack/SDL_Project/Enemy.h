@@ -14,7 +14,6 @@ public:
 	void Update(const float deltaTime);
 	void Render(SDL_Surface* currentsurface, Matrix4 projectionTake) const;
 	void HandleEvents(const SDL_Event& SDL_Event);
-	bool CurrentAttack();
 	EnemyBasicAttack* Attack1;
 	
 	

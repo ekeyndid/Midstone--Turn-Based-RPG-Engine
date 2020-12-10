@@ -18,9 +18,8 @@ class CharacterBase : public GameObject { //Base class for all characters, enemi
 public:
 	//Setting up some functions they'll need
 	inline void TakeDmg(float value) { CurrHP -= value; } //take damage
-	 // deal damage (probably will be yeeted. Idk.)
 	inline virtual void SetHP(float value1, float value2) { CurrHP = value1; CurrMP = value2; }//set current hp to float set current mp to float
-	virtual bool CurrentAttack() = 0; //tell the scene what attack im using
+	 
 	
 	inline int ReturnSpeedRoll()
 	{

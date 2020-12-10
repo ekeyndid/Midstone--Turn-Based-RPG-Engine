@@ -23,7 +23,7 @@ bool Player::OnCreate(const float hpv, const float mpv, const float Speedt, cons
 	case 1:
 		
 		Attack1 = new BasicAttack;
-		AttackList.push_back(Attack1);
+		AttackList.push_back(Attack1); //add valid attacks to attack list
 		break;
 	}
 	return true;
@@ -59,10 +59,7 @@ Player::~Player()
 
 
 
-bool Player::CurrentAttack() {
 
-	return true;
-}
 
 
 

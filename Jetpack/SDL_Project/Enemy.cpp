@@ -50,10 +50,7 @@ void Enemy::HandleEvents(const SDL_Event& SDL_Event)
 
 
 
-bool Enemy::CurrentAttack() {
 
-	return true;
-}
 
 
 
